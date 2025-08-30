@@ -1,7 +1,9 @@
 default: &default
+  name: dummy_project
   adapter: mysql2
   encoding: utf8mb4
 
 development:
   <<: *default
+  name: dummy_project_development
   database: dummy_project_development
