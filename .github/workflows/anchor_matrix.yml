@@ -1,0 +1,30 @@
+name: "Matrix Anchor Sample"
+
+on: [pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: &supported_os [ubuntu-latest, windows-latest, macos-latest]
+        python-version: &supported_node [3.11, 3.12, 3.13]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Test
+        run: echo "Testing on ${{ matrix.os }} with Python ${{ matrix.python-version }}"
+
+  deploy:
+    needs: test
+    strategy:
+      matrix:
+        os: *supported_os
+        node-version: *supported_node
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Deploy
+        run: echo "Deploying on ${{ matrix.os }} with Python ${{ matrix.python-version }}"
