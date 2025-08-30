@@ -1,0 +1,30 @@
+name: "Steps Anchor Sample"
+
+on: [push]
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps: &common_setup
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up dotnet
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0'
+      - name: Install dependencies
+        run: echo "Running `dotnet restore`..."
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - <<: *common_setup
+      - name: Run linting
+        run: echo "Linting..."
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - <<: *common_setup
+      - name: Build project
+        run: echo "Building..."
