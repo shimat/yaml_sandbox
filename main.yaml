@@ -1,9 +1,17 @@
-default: &default
+default_map: &default_map
   name: dummy_project
   adapter: mysql2
   encoding: utf8mb4
 
-development:
-  <<: *default
+development_map:
+  <<: *default_map
   name: dummy_project_development
   database: dummy_project_development
+
+
+default_list: &default_list
+  - AAA
+  - BBB
+
+
+development_list: [*default_list, CCC]

@@ -1,0 +1,20 @@
+name: "Conditions Anchor Sample"
+
+on: pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    if: &not_draft
+      github.event_name != 'pull_request' || !github.event.pull_request.draft
+    steps:
+      - name: Run tests
+        run: echo "Running tests"
+
+  deploy:
+    runs-on: ubuntu-latest
+    if: *not_draft
+    needs: test
+    steps:
+      - name: Deploy
+        run: echo "Deploying"
