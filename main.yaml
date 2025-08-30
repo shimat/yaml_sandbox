@@ -13,5 +13,4 @@ default_list: &default_list
   - AAA
   - BBB
 
-
 development_list: [*default_list, CCC]
